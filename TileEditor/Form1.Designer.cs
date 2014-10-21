@@ -41,15 +41,16 @@
             this.numericUpDownTilesetHeight = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxTileSize = new System.Windows.Forms.ComboBox();
             this.groupBoxMapSize = new System.Windows.Forms.GroupBox();
             this.labelMapHeight = new System.Windows.Forms.Label();
             this.numericUpDownMapHeight = new System.Windows.Forms.NumericUpDown();
             this.labelMapWidth = new System.Windows.Forms.Label();
             this.numericUpDownMapWidth = new System.Windows.Forms.NumericUpDown();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanelMap = new TileEditor.GraphicsPanel();
             this.graphicsPanelTileSet = new TileEditor.GraphicsPanel();
-            this.comboBoxTileSize = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -84,6 +85,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
+            this.importToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -92,13 +94,13 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // toolsToolStripMenuItem
@@ -189,6 +191,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tile Size";
             // 
+            // comboBoxTileSize
+            // 
+            this.comboBoxTileSize.FormattingEnabled = true;
+            this.comboBoxTileSize.Items.AddRange(new object[] {
+            "16x16",
+            "32x32",
+            "64x64"});
+            this.comboBoxTileSize.Location = new System.Drawing.Point(11, 29);
+            this.comboBoxTileSize.Name = "comboBoxTileSize";
+            this.comboBoxTileSize.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxTileSize.TabIndex = 0;
+            // 
             // groupBoxMapSize
             // 
             this.groupBoxMapSize.Controls.Add(this.labelMapHeight);
@@ -253,6 +267,13 @@
             this.splitContainer2.SplitterDistance = 773;
             this.splitContainer2.TabIndex = 0;
             // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Text = "Import...";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
             // graphicsPanelMap
             // 
             this.graphicsPanelMap.BackColor = System.Drawing.Color.White;
@@ -261,6 +282,7 @@
             this.graphicsPanelMap.Name = "graphicsPanelMap";
             this.graphicsPanelMap.Size = new System.Drawing.Size(771, 720);
             this.graphicsPanelMap.TabIndex = 0;
+            this.graphicsPanelMap.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanelMap_Paint);
             // 
             // graphicsPanelTileSet
             // 
@@ -270,18 +292,7 @@
             this.graphicsPanelTileSet.Size = new System.Drawing.Size(280, 199);
             this.graphicsPanelTileSet.TabIndex = 0;
             this.graphicsPanelTileSet.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanelTileSet_Paint);
-            // 
-            // comboBoxTileSize
-            // 
-            this.comboBoxTileSize.FormattingEnabled = true;
-            this.comboBoxTileSize.Items.AddRange(new object[] {
-            "16x16",
-            "32x32",
-            "64x64"});
-            this.comboBoxTileSize.Location = new System.Drawing.Point(11, 29);
-            this.comboBoxTileSize.Name = "comboBoxTileSize";
-            this.comboBoxTileSize.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxTileSize.TabIndex = 0;
+            this.graphicsPanelTileSet.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanelTileSet_MouseClick);
             // 
             // Form1
             // 
@@ -341,6 +352,7 @@
         private GraphicsPanel graphicsPanelTileSet;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboBoxTileSize;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
     }
 }
 
