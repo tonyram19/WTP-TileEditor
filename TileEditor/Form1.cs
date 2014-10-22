@@ -8,77 +8,75 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//e.Graphics.DrawString(gridTileSet[i, j].Rect.Location.ToString(), graphicsPanelTileSet.Font, Brushes.Red, gridTileSet[i, j].Rect.Location);
+
 namespace TileEditor
 {
     public partial class Form1 : Form
     {
-        Tile[,] tilesTileset;
-        Tile[,] tilesMap;
+        Tile[,] gridTileSet;
+        Tile[,] gridMap;
         Bitmap tileSetBitmap;
+        int tileSize;
 
 
         public Form1()
         {
             InitializeComponent();
+
+            //Load default tileset bitmap
             tileSetBitmap = Properties.Resources.tileset1;
+            
+            //Set panel size depending on the tileset size
             graphicsPanelTileSet.Size = tileSetBitmap.Size;
+            
+            //Set default tile size
+            tileSize = 0;
 
         }
 
         private void graphicsPanelTileSet_Paint(object sender, PaintEventArgs e)
         {
-            //Set panel size depending on the tileset size
            
             //Draw the tileset
-            //e.Graphics.DrawImage(Properties.Resources.tileset1, graphicsPanelTileSet.ClientRectangle);
             e.Graphics.DrawImage(tileSetBitmap, graphicsPanelTileSet.ClientRectangle);
-
-            //Set the size of individual tiles
-            int tileSize = 0;
-            switch(comboBoxTileSize.SelectedIndex)
-            {
-                case 0:
-                    tileSize = 16;
-                    break;
-                case 1:
-                    tileSize = 32;
-                    break;
-                case 2:
-                    tileSize = 64;
-                    break;
-            }
-
-            //Initialize tiles array
-            tilesTileset = new Tile[(int)numericUpDownTilesetWidth.Value, (int)numericUpDownTilesetHeight.Value];
 
             //Loop through the array
             for (int i = 0; i < numericUpDownTilesetWidth.Value; i++)
             {
                 for (int j = 0; j < numericUpDownTilesetHeight.Value; j++)
                 {
-                    //Initialize tile
-                    tilesTileset[i, j].Rect = new Rectangle(tileSize * i, tileSize * j, tileSize, tileSize);
-                  
                     //Draw tile border depending on selection
-                    if (tilesTileset[i, j].Selected)
-                        e.Graphics.DrawRectangle(Pens.Red, tilesTileset[i, j].Rect); 
+                    if (!gridTileSet[i, j].Selected)
+                        e.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Yellow), 2), gridTileSet[i, j].Rect);
                     else
-                        e.Graphics.DrawRectangle(Pens.Black, tilesTileset[i, j].Rect);
-                  //  e.Graphics.DrawString(tiles[i, j].Rect.Location.ToString(), graphicsPanelTileSet.Font, Brushes.Red, tiles[i, j].Rect.Location);
+                        e.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Red), 6), gridTileSet[i, j].Rect);
 
-                }
+                 }
             }
 
-
-            Point pos = graphicsPanelTileSet.PointToClient(MousePosition);
-
-            e.Graphics.DrawString(pos.ToString(), graphicsPanelTileSet.Font, Brushes.Red, new Point(0, 0));
-
-             graphicsPanelTileSet.Invalidate();
+            graphicsPanelTileSet.Invalidate();
+        
         }
 
         private void graphicsPanelMap_Paint(object sender, PaintEventArgs e)
         {
+
+            //Draw map grid
+            for (int i = 0; i < numericUpDownMapWidth.Value; i++)
+            {
+                for (int j = 0; j < numericUpDownMapHeight.Value; j++)
+                {
+                    if (gridTileSet != null && gridTileSet.Length != 0)
+                    {
+                        e.Graphics.DrawImage(tileSetBitmap, gridMap[i, j].Rect, gridTileSet[0, 0].Rect, GraphicsUnit.Pixel);
+                        e.Graphics.DrawRectangle(Pens.Black, gridMap[i, j].Rect);
+                    }
+                        
+                }
+            }
+
+//            graphicsPanelMap.Invalidate();
 
         }
         
@@ -89,15 +87,17 @@ namespace TileEditor
             {
                 for (int j = 0; j < numericUpDownTilesetHeight.Value; j++)
                 {
+                    
                     //Select tile if clicked on it and deselect any other selected tile
-                    if (tilesTileset[i, j].Rect.Contains(graphicsPanelTileSet.PointToClient(MousePosition)))
-                        tilesTileset[i, j].Selected = true;
+                    if (gridTileSet[i, j].Rect.Contains(graphicsPanelTileSet.PointToClient(MousePosition)))
+                        gridTileSet[i, j].Selected = true;
                     else
-                        tilesTileset[i, j].Selected = false;
+                        gridTileSet[i, j].Selected = false;
                 }
             }
 
             graphicsPanelTileSet.Invalidate();
+
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
@@ -112,6 +112,76 @@ namespace TileEditor
                 graphicsPanelTileSet.Invalidate();
             }
         }
+
+        private void numericUpDownMapWidth_ValueChanged(object sender, EventArgs e)
+        {
+            gridMap = new Tile[(int)numericUpDownMapWidth.Value, (int)numericUpDownMapHeight.Value];
+
+            for (int i = 0; i < numericUpDownMapWidth.Value; i++)
+            {
+                for (int j = 0; j < numericUpDownMapHeight.Value; j++)
+                    gridMap[i, j].Rect = new Rectangle(tileSize * i, tileSize * j, tileSize, tileSize);
+            }
+
+            graphicsPanelMap.Invalidate();
+        }
+
+        private void comboBoxTileSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+     
+            switch (comboBoxTileSize.SelectedIndex)
+            {
+                case 0:
+                    tileSize = 16;
+                    break;
+                case 1:
+                    tileSize = 32;
+                    break;
+                case 2:
+                    tileSize = 64;
+                    break;
+            }
+
+            gridMap = new Tile[(int)numericUpDownMapWidth.Value, (int)numericUpDownMapHeight.Value];
+
+            for (int i = 0; i < numericUpDownMapWidth.Value; i++)
+            {
+                for (int j = 0; j < numericUpDownMapHeight.Value; j++)
+                    gridMap[i, j].Rect = new Rectangle(tileSize * i, tileSize * j, tileSize, tileSize);
+            }
+
+            gridTileSet = new Tile[(int)numericUpDownTilesetWidth.Value, (int)numericUpDownTilesetHeight.Value];
+
+            for (int i = 0; i < numericUpDownTilesetWidth.Value; i++)
+            {
+                for (int j = 0; j < numericUpDownTilesetHeight.Value; j++)
+                    gridTileSet[i, j].Rect = new Rectangle(tileSize * i, tileSize * j, tileSize, tileSize);
+            }
+
+            graphicsPanelTileSet.Invalidate();
+            graphicsPanelMap.Invalidate();
+        }
+
+        private void numericUpDownTilesetWidth_ValueChanged(object sender, EventArgs e)
+        {
+            gridTileSet = new Tile[(int)numericUpDownTilesetWidth.Value, (int)numericUpDownTilesetHeight.Value];
+     
+            for (int i = 0; i < numericUpDownTilesetWidth.Value; i++)       
+            {
+                for (int j = 0; j < numericUpDownTilesetHeight.Value; j++)
+                    gridTileSet[i, j].Rect = new Rectangle(tileSize * i, tileSize * j, tileSize, tileSize);
+            }
+
+            graphicsPanelTileSet.Invalidate();
+            graphicsPanelMap.Invalidate();
+        }
+
+
+
+
+
+
+
 
     }
 }

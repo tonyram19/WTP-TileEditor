@@ -94,13 +94,13 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // toolsToolStripMenuItem
@@ -164,6 +164,7 @@
             this.numericUpDownTilesetWidth.Name = "numericUpDownTilesetWidth";
             this.numericUpDownTilesetWidth.Size = new System.Drawing.Size(83, 20);
             this.numericUpDownTilesetWidth.TabIndex = 8;
+            this.numericUpDownTilesetWidth.ValueChanged += new System.EventHandler(this.numericUpDownTilesetWidth_ValueChanged);
             // 
             // numericUpDownTilesetHeight
             // 
@@ -171,6 +172,7 @@
             this.numericUpDownTilesetHeight.Name = "numericUpDownTilesetHeight";
             this.numericUpDownTilesetHeight.Size = new System.Drawing.Size(83, 20);
             this.numericUpDownTilesetHeight.TabIndex = 10;
+            this.numericUpDownTilesetHeight.ValueChanged += new System.EventHandler(this.numericUpDownTilesetWidth_ValueChanged);
             // 
             // label4
             // 
@@ -202,6 +204,7 @@
             this.comboBoxTileSize.Name = "comboBoxTileSize";
             this.comboBoxTileSize.Size = new System.Drawing.Size(121, 21);
             this.comboBoxTileSize.TabIndex = 0;
+            this.comboBoxTileSize.SelectedIndexChanged += new System.EventHandler(this.comboBoxTileSize_SelectedIndexChanged);
             // 
             // groupBoxMapSize
             // 
@@ -231,6 +234,7 @@
             this.numericUpDownMapHeight.Name = "numericUpDownMapHeight";
             this.numericUpDownMapHeight.Size = new System.Drawing.Size(83, 20);
             this.numericUpDownMapHeight.TabIndex = 2;
+            this.numericUpDownMapHeight.ValueChanged += new System.EventHandler(this.numericUpDownMapWidth_ValueChanged);
             // 
             // labelMapWidth
             // 
@@ -247,6 +251,7 @@
             this.numericUpDownMapWidth.Name = "numericUpDownMapWidth";
             this.numericUpDownMapWidth.Size = new System.Drawing.Size(83, 20);
             this.numericUpDownMapWidth.TabIndex = 0;
+            this.numericUpDownMapWidth.ValueChanged += new System.EventHandler(this.numericUpDownMapWidth_ValueChanged);
             // 
             // splitContainer2
             // 
@@ -270,7 +275,7 @@
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.importToolStripMenuItem.Text = "Import...";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
