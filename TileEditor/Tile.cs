@@ -13,6 +13,13 @@ namespace TileEditor
         int y;
         Rectangle rect;
         bool selected;
+        Rectangle paintOver;
+
+        public Rectangle PaintOver
+        {
+            get { return paintOver; }
+            set { paintOver = value; }
+        }
 
         public Tile(int x, int y)
         {
@@ -20,6 +27,7 @@ namespace TileEditor
             this.y = y;
             this.selected = false;
             this.rect = Rectangle.Empty;
+            this.paintOver = Rectangle.Empty;
         }
 
         public int X
